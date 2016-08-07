@@ -145,7 +145,7 @@ public class HelloWorldExample extends HttpServlet {
             String user = "username=" + "harsh.atal@gmail.com";
             String hash = "&hash=" + "04fa1b5546432e99162704a7025403879d589271";
             message = "&message=" + message;
-            String sender = "&sender=" + "TXTLCL";
+            String sender = "&sender=" + "NVBDCP";
             //String numbers = "&numbers=" + "919654232779&unicode=1&test=1";
 			String numbers = "&numbers=" + mobileNo +"&unicode=1";
  
