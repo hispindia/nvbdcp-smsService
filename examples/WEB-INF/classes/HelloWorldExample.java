@@ -56,26 +56,39 @@ public class HelloWorldExample extends HttpServlet {
         response.setContentType("text/html");
         
 		Map<String, String> gujratiTranslationMap = new HashMap<String, String>();
-		
+		Map<String, String> teluguTranslationMap = new HashMap<String, String>();
+		Map<String, String> hindiTranslationMap = new HashMap<String, String>();
+		Map<String, String> oriyaTranslationMap = new HashMap<String, String>();
+		Map<String, String> bengaliTranslationMap = new HashMap<String, String>();
+		Map<String, String> kannadTranslationMap = new HashMap<String, String>();
+		Map<String, String> marathiTranslationMap = new HashMap<String, String>();
+
 		gujratiTranslationMap.put( "PERFECT_MESSAGE", "આભાર! તમે");
     	gujratiTranslationMap.put( "male", "પુરુષ" );
         gujratiTranslationMap.put( "female", "સ્ત્રી" );
         gujratiTranslationMap.put( "sideEffect", "સાઇડ ઇફેક્ટ્સ" );
+
 
 		hindiTranslationMap.put( "PERFECT_MESSAGE", "धन्यवाद! आप ने भेजा");
         hindiTranslationMap.put( "male", "પુરુષ" );
         hindiTranslationMap.put( "female", "સ્ત્રી" );
         hindiTranslationMap.put( "sideEffect", "दुष्प्रभाव" );
 
+
+        oriyaTranslationMap.put( "PERFECT_MESSAGE", "ପେର୍fଏcଟ୍ ମେସ୍ସଗେ");
+        oriyaTranslationMap.put( "male", "ମଲେ" );
+        oriyaTranslationMap.put( "female", "fଏମଲେ" );
+        oriyaTranslationMap.put( "sideEffect", "ସିଡେEffଏcଟ୍" );
+
         bengaliTranslationMap.put( "PERFECT_MESSAGE", "ধন্যবাদ! আপনি ");
         bengaliTranslationMap.put( "male", "পুরুষ" );
         bengaliTranslationMap.put( "female", "মহিলা" );
         bengaliTranslationMap.put( "sideEffect", "সাইড এফেক্টস" );
 
-        kannadTranslationMap.put( "PERFECT_MESSAGE", "");
-        kannadTranslationMap.put( "male", "પુરુષ" );
-        kannadTranslationMap.put( "female", "સ્ત્રી" );
-        kannadTranslationMap.put( "sideEffect", "સાઇડ ઇફેક્ટ્સ" );
+        kannadTranslationMap.put( "PERFECT_MESSAGE", "ಪರಿಪೂರ್ಣ ಸಂದೇಶ");
+        kannadTranslationMap.put( "male", "ಪುರುಷ" );
+        kannadTranslationMap.put( "female", "ಸ್ತ್ರೀ" );
+        kannadTranslationMap.put( "sideEffect", "ಅಡ್ಡ ಪರಿಣಾಮ" );
 
         
         marathiTranslationMap.put( "PERFECT_MESSAGE", "धन्यवाद!");
@@ -83,10 +96,12 @@ public class HelloWorldExample extends HttpServlet {
         marathiTranslationMap.put( "female", "स्त्री " );
         marathiTranslationMap.put( "sideEffect", "साइड इफेक्ट्स" );
 
-        teluguTranslationMap.put( "PERFECT_MESSAGE", "આભાર! તમે");
-        teluguTranslationMap.put( "male", "પુરુષ" );
-        teluguTranslationMap.put( "female", "સ્ત્રી" );
-        teluguTranslationMap.put( "sideEffect", "સાઇડ ઇફેક્ટ્સ" );
+        teluguTranslationMap.put( "PERFECT_MESSAGE", "ధన్యవాదాలు");
+        teluguTranslationMap.put( "male", "పురుషుడు" );
+        teluguTranslationMap.put( "female", "పురుషుడు" );
+        teluguTranslationMap.put( "sideEffect", "దుష్ప్రభావాన్ని" );
+
+
 
 		PrintWriter out = response.getWriter();
 		
@@ -143,7 +158,9 @@ public class HelloWorldExample extends HttpServlet {
 				}
 				
                 System.out.println( key + "---" + messageValue );
-				
+                System.out.println( "language" + language );
+
+
 				
             }  
 			*/
@@ -167,12 +184,16 @@ public class HelloWorldExample extends HttpServlet {
 			if (language.equalsIgnoreCase("Bengali")){
                 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, bengaliTranslationMap );
             }
+            if (language.equalsIgnoreCase("Oriya")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, oriyaTranslationMap );
+            }
             
 
 			
         }
 					
         out.println( responseMessage );
+
 		
       
     }
