@@ -61,9 +61,33 @@ public class HelloWorldExample extends HttpServlet {
     	gujratiTranslationMap.put( "male", "પુરુષ" );
         gujratiTranslationMap.put( "female", "સ્ત્રી" );
         gujratiTranslationMap.put( "sideEffect", "સાઇડ ઇફેક્ટ્સ" );
-        gujratiTranslationMap.put( "sent", "મોકલવામાં" );
-		
-		
+
+		hindiTranslationMap.put( "PERFECT_MESSAGE", "धन्यवाद! आप ने भेजा");
+        hindiTranslationMap.put( "male", "પુરુષ" );
+        hindiTranslationMap.put( "female", "સ્ત્રી" );
+        hindiTranslationMap.put( "sideEffect", "दुष्प्रभाव" );
+
+        bengaliTranslationMap.put( "PERFECT_MESSAGE", "ধন্যবাদ! আপনি ");
+        bengaliTranslationMap.put( "male", "পুরুষ" );
+        bengaliTranslationMap.put( "female", "মহিলা" );
+        bengaliTranslationMap.put( "sideEffect", "সাইড এফেক্টস" );
+
+        kannadTranslationMap.put( "PERFECT_MESSAGE", "");
+        kannadTranslationMap.put( "male", "પુરુષ" );
+        kannadTranslationMap.put( "female", "સ્ત્રી" );
+        kannadTranslationMap.put( "sideEffect", "સાઇડ ઇફેક્ટ્સ" );
+
+        
+        marathiTranslationMap.put( "PERFECT_MESSAGE", "धन्यवाद!");
+        marathiTranslationMap.put( "male", "पुरुष" );
+        marathiTranslationMap.put( "female", "स्त्री " );
+        marathiTranslationMap.put( "sideEffect", "साइड इफेक्ट्स" );
+
+        teluguTranslationMap.put( "PERFECT_MESSAGE", "આભાર! તમે");
+        teluguTranslationMap.put( "male", "પુરુષ" );
+        teluguTranslationMap.put( "female", "સ્ત્રી" );
+        teluguTranslationMap.put( "sideEffect", "સાઇડ ઇફેક્ટ્સ" );
+
 		PrintWriter out = response.getWriter();
 		
 		String responseMessage = "";
@@ -91,6 +115,14 @@ public class HelloWorldExample extends HttpServlet {
                 {
                     smsDate = ((String[]) params.get( key ))[0];
                 }
+                if ( key.equalsIgnoreCase("language" ) )
+                {
+                    language = ((String[]) params.get( key ))[0];
+                }
+                if ( key.equalsIgnoreCase("hash" ) )
+                {
+                    hash = ((String[]) params.get( key ))[0];
+                }
             }
 			
 			/*
@@ -115,7 +147,27 @@ public class HelloWorldExample extends HttpServlet {
 				
             }  
 			*/
-			responseMessage = sendSMS(mobileNo, smsMessage, smsDate, gujratiTranslationMap );
+			
+			
+			if (language.equalsIgnoreCase("Gujarati")){
+			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, gujratiTranslationMap );
+			}
+			if (language.equalsIgnoreCase("Marathi")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, marathiTranslationMap );
+            }
+            if (language.equalsIgnoreCase("Hindi")){
+			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, hindiTranslationMap );
+			}
+			if (language.equalsIgnoreCase("Kannad")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, kannadTranslationMap );
+            }
+            if (language.equalsIgnoreCase("Telugu")){
+			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, teluguTranslationMap );
+			}
+			if (language.equalsIgnoreCase("Bengali")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, bengaliTranslationMap );
+            }
+            
 
 			
         }
@@ -125,7 +177,7 @@ public class HelloWorldExample extends HttpServlet {
       
     }
 	
-    public String sendSMS (String mobileNo, String message, String smsDate, Map<String, String> gujratiTranslationMap) throws UnsupportedEncodingException
+    public String sendSMS (String mobileNo, String message, String smsDate, String hash,Map<String, String> translationMap) throws UnsupportedEncodingException
     {
         String resopnseString = "";
 		System.out.println(mobileNo +" -- 1 -- " + message );
@@ -136,14 +188,14 @@ public class HelloWorldExample extends HttpServlet {
            
 		   String [] tempMessage = message.split( "," );
             
-            message = gujratiTranslationMap.get( "PERFECT_MESSAGE" ) + " " + gujratiTranslationMap.get( "male" ) +"("+
-                        tempMessage[0]+","+tempMessage[1]+","+tempMessage[2]+")"+gujratiTranslationMap.get( "female" )+"("+
-                        tempMessage[3]+","+tempMessage[4]+","+tempMessage[5]+")"+gujratiTranslationMap.get( "sideEffect" )+"("+
+            message = gujratiTranslationMap.get( "PERFECT_MESSAGE" ) + " " + translationMap.get( "male" ) +"("+
+                        tempMessage[0]+","+tempMessage[1]+","+tempMessage[2]+")"+translationMap.get( "female" )+"("+
+                        tempMessage[3]+","+tempMessage[4]+","+tempMessage[5]+")"+translationMap.get( "sideEffect" )+"("+
                         tempMessage[6]+") "+ smsDate;
                 
 		   
             String user = "username=" + "harsh.atal@gmail.com";
-            String hash = "&hash=" + "04fa1b5546432e99162704a7025403879d589271";
+            String hash = "&hash=" + hash;
             message = "&message=" + message;
             String sender = "&sender=" + "NVBDCP";
             //String numbers = "&numbers=" + "919654232779&unicode=1&test=1";
