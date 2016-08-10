@@ -75,10 +75,10 @@ public class HelloWorldExample extends HttpServlet {
         hindiTranslationMap.put( "sideEffect", "दुष्प्रभाव" );
 
 
-        oriyaTranslationMap.put( "PERFECT_MESSAGE", "ପେର୍fଏcଟ୍ ମେସ୍ସଗେ");
-        oriyaTranslationMap.put( "male", "ମଲେ" );
-        oriyaTranslationMap.put( "female", "fଏମଲେ" );
-        oriyaTranslationMap.put( "sideEffect", "ସିଡେEffଏcଟ୍" );
+        oriyaTranslationMap.put( "PERFECT_MESSAGE", "Thank you! You sent");
+        oriyaTranslationMap.put( "male", "Male" );
+        oriyaTranslationMap.put( "female", "Female" );
+        oriyaTranslationMap.put( "sideEffect", "SideEffect" );
 
         bengaliTranslationMap.put( "PERFECT_MESSAGE", "ধন্যবাদ! আপনি ");
         bengaliTranslationMap.put( "male", "পুরুষ" );
@@ -110,6 +110,9 @@ public class HelloWorldExample extends HttpServlet {
 		String mobileNo = "";
 		String smsMessage = "";
 		String smsDate = "";
+		String language = "";
+		String hash = "";
+
 		
 		Map<String, String[]> params = new HashMap<String, String[]>( request.getParameterMap() );
         
@@ -139,7 +142,10 @@ public class HelloWorldExample extends HttpServlet {
                     hash = ((String[]) params.get( key ))[0];
                 }
             }
-			
+
+
+
+
 			/*
 			Iterator<String> it = params.keySet().iterator();
 
@@ -157,8 +163,6 @@ public class HelloWorldExample extends HttpServlet {
 					smsMessage = messageValue;
 				}
 				
-                System.out.println( key + "---" + messageValue );
-                System.out.println( "language" + language );
 
 
 				
@@ -184,7 +188,7 @@ public class HelloWorldExample extends HttpServlet {
 			if (language.equalsIgnoreCase("Bengali")){
                 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, bengaliTranslationMap );
             }
-            if (language.equalsIgnoreCase("Oriya")){
+            if (language.equalsIgnoreCase("Odiya")){
                 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, oriyaTranslationMap );
             }
             
@@ -209,14 +213,14 @@ public class HelloWorldExample extends HttpServlet {
            
 		   String [] tempMessage = message.split( "," );
             
-            message = gujratiTranslationMap.get( "PERFECT_MESSAGE" ) + " " + translationMap.get( "male" ) +"("+
+            message = translationMap.get( "PERFECT_MESSAGE" ) + " " + translationMap.get( "male" ) +"("+
                         tempMessage[0]+","+tempMessage[1]+","+tempMessage[2]+")"+translationMap.get( "female" )+"("+
                         tempMessage[3]+","+tempMessage[4]+","+tempMessage[5]+")"+translationMap.get( "sideEffect" )+"("+
                         tempMessage[6]+") "+ smsDate;
                 
 		   
             String user = "username=" + "harsh.atal@gmail.com";
-            String hash = "&hash=" + hash;
+            String _hash = "&hash=" + hash;
             message = "&message=" + message;
             String sender = "&sender=" + "NVBDCP";
             //String numbers = "&numbers=" + "919654232779&unicode=1&test=1";
@@ -224,7 +228,7 @@ public class HelloWorldExample extends HttpServlet {
  
             // Send data
             HttpURLConnection conn = (HttpURLConnection) new URL("http://api.textlocal.in/send/?").openConnection();
-            String data = user +hash + message + sender+numbers;
+            String data = user +_hash + message + sender+numbers;
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
