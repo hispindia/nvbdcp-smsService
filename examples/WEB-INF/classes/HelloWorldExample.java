@@ -51,11 +51,14 @@ public class HelloWorldExample extends HttpServlet {
                       HttpServletResponse response)
         throws IOException, ServletException
     {
+
+            System.out.println( "Yes" );
+
         ResourceBundle rb =
             ResourceBundle.getBundle("LocalStrings",request.getLocale());
         response.setContentType("text/html");
         
-		Map<String, String> gujratiTranslationMap = new HashMap<String, String>();
+			Map<String, String> gujratiTranslationMap = new HashMap<String, String>();
 		Map<String, String> teluguTranslationMap = new HashMap<String, String>();
 		Map<String, String> hindiTranslationMap = new HashMap<String, String>();
 		Map<String, String> oriyaTranslationMap = new HashMap<String, String>();
@@ -102,6 +105,58 @@ public class HelloWorldExample extends HttpServlet {
         teluguTranslationMap.put( "sideEffect", "దుష్ప్రభావాన్ని" );
 
 
+/*LCDC Translation*/
+			Map<String, String> gujratiTranslationMap1 = new HashMap<String, String>();
+		Map<String, String> teluguTranslationMap1 = new HashMap<String, String>();
+		Map<String, String> hindiTranslationMap1 = new HashMap<String, String>();
+		Map<String, String> oriyaTranslationMap1 = new HashMap<String, String>();
+		Map<String, String> bengaliTranslationMap1 = new HashMap<String, String>();
+		Map<String, String> kannadTranslationMap1 = new HashMap<String, String>();
+		Map<String, String> marathiTranslationMap1 = new HashMap<String, String>();
+		Map<String, String> punjabiTranslationMap1 = new HashMap<String, String>();
+
+		gujratiTranslationMap1.put( "PERFECT_MESSAGE", "આભાર! તમે");
+    	gujratiTranslationMap1.put( "HouseholdVisit", "ઘરગથ્થુ મુલાકાત લો" );
+        gujratiTranslationMap1.put( "PeopleExamined", "લોકો તપાસ" );
+        gujratiTranslationMap1.put( "SuspectedCases", "શંકાસ્પદ કેસ" );
+
+
+		hindiTranslationMap1.put( "PERFECT_MESSAGE", "धन्यवाद! आप ने भेजा");
+        hindiTranslationMap1.put( "HouseholdVisit", "घरेलू भेंट" );
+        hindiTranslationMap1.put( "PeopleExamined", "लोगों की जांच की" );
+        hindiTranslationMap1.put( "SuspectedCases", "संदिग्ध मामलों" );
+
+
+        oriyaTranslationMap1.put( "PERFECT_MESSAGE", "Thank you! You sent");
+        oriyaTranslationMap1.put( "HouseholdVisit", "HouseholdVisit" );
+        oriyaTranslationMap1.put( "PeopleExamined", "PeopleExamined" );
+        oriyaTranslationMap1.put( "SuspectedCases", "SuspectedCases" );
+
+        bengaliTranslationMap1.put( "PERFECT_MESSAGE", "ধন্যবাদ! আপনি ");
+        bengaliTranslationMap1.put( "HouseholdVisit", "গৃহস্থালী পরিদর্শন" );
+        bengaliTranslationMap1.put( "PeopleExamined", "মানুষ পরীক্ষা" );
+        bengaliTranslationMap1.put( "SuspectedCases", "সন্দেহভাজন মামলা" );
+
+        kannadTranslationMap1.put( "PERFECT_MESSAGE", "ಪರಿಪೂರ್ಣ ಸಂದೇಶ");
+        kannadTranslationMap1.put( "HouseholdVisit", "ಮನೆಯ ಭೇಟಿ" );
+        kannadTranslationMap1.put( "PeopleExamined", "ಜನರು ಪರೀಕ್ಷೆ" );
+        kannadTranslationMap1.put( "SuspectedCases", "ಶಂಕಿತ ಪ್ರಕರಣಗಳು" );
+
+        
+        marathiTranslationMap1.put( "PERFECT_MESSAGE", "धन्यवाद!");
+        marathiTranslationMap1.put( "HouseholdVisit", "घरगुती ला भेट द्या" );
+        marathiTranslationMap1.put( "PeopleExamined", "लोक तपासणी " );
+        marathiTranslationMap1.put( "SuspectedCases", "ंशयित प्रकरणे" );
+
+        teluguTranslationMap1.put( "PERFECT_MESSAGE", "ధన్యవాదాలు");
+        teluguTranslationMap1.put( "HouseholdVisit", "గృహ సందర్శించండి" );
+        teluguTranslationMap1.put( "PeopleExamined", "్రజలు ఎక్జమిండ్" );
+        teluguTranslationMap1.put( "SuspectedCases", "అనుమానిత కేసులు" );
+		
+		punjabiTranslationMap1.put( "PERFECT_MESSAGE", "ਤੁਹਾਡਾ ਧੰਨਵਾਦ!");
+        punjabiTranslationMap1.put( "HouseholdVisit", "ਘਰੇਲੂ ਮੁਲਾਕਾਤ" );
+        punjabiTranslationMap1.put( "PeopleExamined", "ਲੋਕ ਸਵਾਲ" );
+        punjabiTranslationMap1.put( "SuspectedCases", "ਕੀ ਕੇਸ" );
 
 		PrintWriter out = response.getWriter();
 		
@@ -112,6 +167,7 @@ public class HelloWorldExample extends HttpServlet {
 		String smsDate = "";
 		String language = "";
 		String hash = "";
+		String type = "";
 
 		
 		Map<String, String[]> params = new HashMap<String, String[]>( request.getParameterMap() );
@@ -141,6 +197,10 @@ public class HelloWorldExample extends HttpServlet {
                 {
                     hash = ((String[]) params.get( key ))[0];
                 }
+				 if ( key.equalsIgnoreCase("type" ) )
+                {
+                    type = ((String[]) params.get( key ))[0];
+                }
             }
 
 
@@ -162,34 +222,53 @@ public class HelloWorldExample extends HttpServlet {
 				{
 					smsMessage = messageValue;
 				}
-				
-
-
-				
             }  
 			*/
 			
-			
-			if (language.equalsIgnoreCase("Gujarati")){
-			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, gujratiTranslationMap );
+			if (language.equalsIgnoreCase("Gujarati") && type.equalsIgnoreCase("nvbdcp") ){
+			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, gujratiTranslationMap, type);
 			}
-			if (language.equalsIgnoreCase("Marathi")){
-                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, marathiTranslationMap );
-            }
-            if (language.equalsIgnoreCase("Hindi")){
-			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, hindiTranslationMap );
+			else if (language.equalsIgnoreCase("Gujarati") && type.equalsIgnoreCase("LCDC") ){
+				 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, gujratiTranslationMap1, type );
 			}
-			if (language.equalsIgnoreCase("Kannad")){
-                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, kannadTranslationMap );
+			if (language.equalsIgnoreCase("Marathi")  && type.equalsIgnoreCase("nvbdcp")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, marathiTranslationMap, type );
             }
-            if (language.equalsIgnoreCase("Telugu")){
-			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, teluguTranslationMap );
+			else if (language.equalsIgnoreCase("Marathi") && type.equalsIgnoreCase("LCDC") ){
+				 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, marathiTranslationMap1,type );
 			}
-			if (language.equalsIgnoreCase("Bengali")){
-                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, bengaliTranslationMap );
+            if (language.equalsIgnoreCase("Hindi")  && type.equalsIgnoreCase("nvbdcp")){
+			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, hindiTranslationMap,type );
+			}
+			else if (language.equalsIgnoreCase("Hindi") && type.equalsIgnoreCase("LCDC") ){
+				 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, hindiTranslationMap1,type );
+			}
+			if (language.equalsIgnoreCase("Kannad")  && type.equalsIgnoreCase("nvbdcp")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, kannadTranslationMap,type );
             }
-            if (language.equalsIgnoreCase("Odiya")){
-                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, oriyaTranslationMap );
+			else if (language.equalsIgnoreCase("Kannad") && type.equalsIgnoreCase("LCDC") ){
+				 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, kannadTranslationMap1,type );
+			}
+            if (language.equalsIgnoreCase("Telugu")  && type.equalsIgnoreCase("nvbdcp")){
+			    responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, teluguTranslationMap,type );
+			}
+			else if (language.equalsIgnoreCase("Telugu") && type.equalsIgnoreCase("LCDC") ){
+				 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, teluguTranslationMap1,type );
+			}
+			if (language.equalsIgnoreCase("Bengali")  && type.equalsIgnoreCase("nvbdcp")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, bengaliTranslationMap,type );
+            }
+			else if (language.equalsIgnoreCase("Bengali") && type.equalsIgnoreCase("LCDC") ){
+				 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, bengaliTranslationMap1,type );
+			}
+            if (language.equalsIgnoreCase("Odiya")  && type.equalsIgnoreCase("nvbdcp")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, oriyaTranslationMap,type );
+            }
+			else if (language.equalsIgnoreCase("Odiya") && type.equalsIgnoreCase("LCDC") ){
+				 responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, oriyaTranslationMap1,type );
+			}
+			 if (language.equalsIgnoreCase("Punjabi")  && type.equalsIgnoreCase("LCDC")){
+                responseMessage = sendSMS(mobileNo, smsMessage, smsDate,hash, punjabiTranslationMap1,type );
             }
             
 
@@ -202,7 +281,7 @@ public class HelloWorldExample extends HttpServlet {
       
     }
 	
-    public String sendSMS (String mobileNo, String message, String smsDate, String hash,Map<String, String> translationMap) throws UnsupportedEncodingException
+    public String sendSMS (String mobileNo, String message, String smsDate, String hash,Map<String, String> translationMap, String type) throws UnsupportedEncodingException
     {
         String resopnseString = "";
 		System.out.println(mobileNo +" -- 1 -- " + message );
@@ -212,11 +291,27 @@ public class HelloWorldExample extends HttpServlet {
             // Construct data
            
 		   String [] tempMessage = message.split( "," );
+		   	System.out.println("tempMessage-------" + tempMessage );
             
-            message = translationMap.get( "PERFECT_MESSAGE" ) + " " + translationMap.get( "male" ) +"("+
+			/*if (type.equalsIgnoreCase("LCDC")){
+				 message = translationMap.get( "PERFECT_MESSAGE" ) + " " + translationMap.get( "HouseholdVisit" ) +"("+
+                        tempMessage[0]+","+tempMessage[1]+","+tempMessage[2]+")"+translationMap.get( "PeopleExamined" )+"("+
+                        tempMessage[3]+","+tempMessage[4]+","+tempMessage[5]+")"+translationMap.get( "SuspectedCases" )+"("+
+                        tempMessage[6]+") "+ smsDate;
+			}*/
+			if (type.equalsIgnoreCase("LCDC")){
+				 message = translationMap.get( "PERFECT_MESSAGE" ) + " " + translationMap.get( "HouseholdVisit" ) + "="+
+                        tempMessage[0]+","+translationMap.get( "PeopleExamined" )+ "="+
+                        tempMessage[1]+","+translationMap.get( "SuspectedCases" )+ "="+
+                        tempMessage[2]+" "+ smsDate;
+			}
+			else{
+				 message = translationMap.get( "PERFECT_MESSAGE" ) + " " + translationMap.get( "male" ) +"("+
                         tempMessage[0]+","+tempMessage[1]+","+tempMessage[2]+")"+translationMap.get( "female" )+"("+
                         tempMessage[3]+","+tempMessage[4]+","+tempMessage[5]+")"+translationMap.get( "sideEffect" )+"("+
                         tempMessage[6]+") "+ smsDate;
+			}
+           
                 
 		   
             String user = "username=" + "harsh.atal@gmail.com";
